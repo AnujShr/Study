@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Acm\Transformer\LessonTransformers;
 use App\Lesson;
-use Dotenv\Validator;
-use Illuminate\Http\Request;
 
 class LessonController extends ApiController
 {
@@ -25,10 +23,10 @@ class LessonController extends ApiController
 
     public function index()
     {
-        $lessons = Lesson::all();
-        return $this->respond([
-            'data' => $this->lessonTransformer->transformCollection($lessons->all())
-        ]);
+        $limit = request()->get('limit') ?: 3;
+        $lessons = Lesson::paginate($limit);
+        return $this->respondWithPagination($lessons,
+            $data = $this->lessonTransformer->transformCollection($lessons->all()));
     }
 
 

@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Contracts\Pagination\Paginator;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
 
 /**
  * Class ApiController
@@ -37,15 +36,6 @@ class ApiController extends Controller
     }
 
     /**
-     * @param string $message
-     * @return mixed
-     */
-    public function respondNotFound($message = 'Not Found')
-    {
-        return $this->setStatusCode(self::HTTP_NOT_FOUND)->respondWithError($message);
-    }
-
-    /**
      * @param $data
      * @param array $headers
      * @return \Illuminate\Http\JsonResponse
@@ -55,6 +45,31 @@ class ApiController extends Controller
         return response()->json(
             $data, $this->getStatusCode(), $headers
         );
+    }
+
+    /**
+     * @param Paginator $lessons
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function respondWithPagination(Paginator $lessons, $data)
+    {
+        return $this->respond($data = array_merge($data, [
+            'paginator' => [
+                'total_count' => $lessons->total(),
+                'total_pages' => ceil($lessons->total() / $lessons->perPage()),
+                'current_page' => $lessons->currentPage(),
+                'limit' => $lessons->perPage()
+            ]
+        ]));
+    }
+
+    /**
+     * @param string $message
+     * @return mixed
+     */
+    public function respondNotFound($message = 'Not Found')
+    {
+        return $this->setStatusCode(self::HTTP_NOT_FOUND)->respondWithError($message);
     }
 
     /**
