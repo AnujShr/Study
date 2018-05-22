@@ -16,6 +16,9 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'api/v1'], function () {
+    Route::get('lessons/{id}/tags','TagController@index');
     Route::resource('lessons', 'LessonController');
+    Route::resource('tags', 'TagController',['only' =>['index','show']]);
+
 });
 
