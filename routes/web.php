@@ -12,13 +12,28 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home/home');
 });
+Route::get('wins', 'GraphController@index');
 
+Route::get('welcome', 'RevenueController@index');
+
+//api
 Route::group(['prefix' => 'api/v1'], function () {
-    Route::get('lessons/{id}/tags','TagController@index');
+    Route::get('lessons/{id}/tags', 'TagController@index');
     Route::resource('lessons', 'LessonController');
-    Route::resource('tags', 'TagController',['only' =>['index','show']]);
+    Route::resource('tags', 'TagController', ['only' => ['index', 'show']]);
 
 });
+Route::get('stock/add', 'StockController@create');
+Route::post('stock/add', 'StockController@store');
 
+Route::get('stocks', 'StockController@index');
+Route::get('stock/chart', 'StockController@chart');
+
+Route::get('chartjs', 'HomeController@chartjs');
+Route::get('car' ,function ()
+{
+    return view('drop');
+});
+Route::get('api/dropdown', 'DropController@api');
