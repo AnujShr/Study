@@ -16,7 +16,7 @@ class CarSeeder extends Seeder
         $model = CarModel::all();
         foreach ($model as $m) {
             foreach (range(0, 5) as $index) {
-                Car::insert([
+                Car::create([
                     'name' => $index + 6 + $m->id,
                     'car_model_id' => $m->id
                 ]);

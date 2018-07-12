@@ -1,4 +1,4 @@
-@extends('layout.master')
+@extends('layouts.master')
 @section('page-content')
     <div>
         <h1>Rocket League</h1>

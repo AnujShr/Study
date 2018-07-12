@@ -14,7 +14,7 @@ class modelSeeder extends Seeder
     {
         CarModel::truncate();
         foreach (range(0, 5) as $index) {
-            CarModel::insert([
+            CarModel::create([
                 'name' => $index,
             ]);
         }

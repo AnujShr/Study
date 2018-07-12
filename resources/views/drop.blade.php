@@ -1,4 +1,4 @@
-@extends('layout.master')
+@extends('layouts.master')
 @section('page-content')
     <h1>Dropdown demo</h1>
     <form method="post">
@@ -7,6 +7,7 @@
             <option value="1">Toyota</option>
             <option value="2">Honda</option>
             <option value="3">Mercedes</option>
+            <option value="4">BMW</option>
         </select>
         <br>
         <select id="model" name="model">
@@ -26,7 +27,7 @@
                     success: function (response) {
                         var model = $('#model');
                         model.empty();
-                        $.each((response.response), function (key, value) {
+                        $.each((response.data), function (key, value) {
                             model.append("<option value='" + key + "'>" + value.name + "</option>");
                         });
                     }

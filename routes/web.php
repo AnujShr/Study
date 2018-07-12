@@ -10,10 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('home/home');
-});
+/*
+//Route::get('/', function () {
+//    return view('home/home');
+//});
 Route::get('wins', 'GraphController@index');
 
 Route::get('welcome', 'RevenueController@index');
@@ -32,8 +32,18 @@ Route::get('stocks', 'StockController@index');
 Route::get('stock/chart', 'StockController@chart');
 
 Route::get('chartjs', 'HomeController@chartjs');
-Route::get('car' ,function ()
-{
+Route::get('car', function () {
     return view('drop');
 });
 Route::get('api/dropdown', 'DropController@api');
+
+Route::get('add', 'AddController@index');
+Route::post('add/save', 'AddController@store');
+Route::get('add/get', 'AddController@get');
+
+Route::get('st',function(){
+    return view('jquery/index');
+});
+*/
+
+Route::get('/','WelcomeController@index');
